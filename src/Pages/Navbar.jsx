@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FcNews } from "react-icons/fc";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../Provider/AuthProvider";
+import image from "../assets/1144760.png";
 
 export default function Navbar() {
+  const { user, logOut } = useContext(AuthContext);
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -69,7 +72,30 @@ export default function Navbar() {
         </ul>
       </div>
       <div className="navbar-end">
-        <a className="btn">Button</a>
+        <div>
+          {user?.email ? (
+            <div>
+              <img
+                src={user?.photoURL && user?.photoURL}
+                className="w-10 h-10 rounded-full border-2 border-gray-300"
+              />
+            </div>
+          ) : (
+            <div className="w-10 h-10 rounded-full">
+              <img src={image} alt="" />
+            </div>
+          )}
+        </div>
+        <div className="mr-4"></div>
+        {user && user?.email ? (
+          <button onClick={logOut} className="btn btn-secondary text-white">
+            Log-out
+          </button>
+        ) : (
+          <Link to="/login" className="btn btn-secondary text-white">
+            Login
+          </Link>
+        )}
       </div>
     </div>
   );
