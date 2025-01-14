@@ -1,4 +1,6 @@
 import React from "react";
+import { FcNews } from "react-icons/fc";
+import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   return (
@@ -26,46 +28,43 @@ export default function Navbar() {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a>Item 1</a>
+              <NavLink>Home</NavLink>
             </li>
             <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
+              <NavLink>Add Articles</NavLink>
             </li>
             <li>
-              <a>Item 3</a>
+              <NavLink>All Articles</NavLink>
+            </li>
+            <li>
+              <NavLink>Subscription</NavLink>
+            </li>
+            <li>
+              <NavLink>My Articles</NavLink>
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <a className="flex items-center gap-3 text-xl font-bold">
+          <FcNews className="text-3xl" />
+          Hot News
+        </a>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a>Item 1</a>
+            <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </details>
+            <NavLink to="/addArticles">Add Articles</NavLink>
           </li>
           <li>
-            <a>Item 3</a>
+            <NavLink to="/allArticles">All Articles</NavLink>
+          </li>
+          <li>
+            <NavLink to="/subscription">Subscription</NavLink>
+          </li>
+          <li>
+            <NavLink to="/myArticles">My Articles</NavLink>
           </li>
         </ul>
       </div>

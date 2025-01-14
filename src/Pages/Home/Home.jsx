@@ -1,9 +1,12 @@
 import React from "react";
+import ArticlePage from "./ArticlePage";
+import Banner from "./Banner";
 
 export default function Home() {
   return (
     <div>
-      <h2>This is home</h2>
+      <Banner></Banner>
+      <ArticlePage></ArticlePage>
     </div>
   );
 }
