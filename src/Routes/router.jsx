@@ -1,12 +1,15 @@
 import { createBrowserRouter } from "react-router-dom";
+import Dashboard from "../MainLayout/Dashboard";
 import Main from "../MainLayout/Main";
 import AddArticles from "../Pages/AddArticles";
 import AllArticles from "../Pages/AllArticles";
+import Users from "../Pages/Dashboard/Users";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Home/Login";
 import MyArticles from "../Pages/MyArticles";
 import Register from "../Pages/Register";
 import Subscription from "../Pages/Subscription";
+import PrivetRoutes from "../Routes/PrivetRoutes";
 
 export const router = createBrowserRouter([
   {
@@ -19,7 +22,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "/addArticles",
-        element: <AddArticles></AddArticles>,
+        element: (
+          <PrivetRoutes>
+            <AddArticles></AddArticles>
+          </PrivetRoutes>
+        ),
       },
       {
         path: "/allArticles",
@@ -42,5 +49,15 @@ export const router = createBrowserRouter([
         element: <Register></Register>,
       },
     ],
+  },
+  {
+    path: "dashboard",
+    element: <Dashboard></Dashboard>,
+    children: [
+      {
+        path: "users",
+        element: <Users></Users>
+      }
+    ]
   },
 ]);

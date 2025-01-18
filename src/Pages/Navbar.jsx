@@ -31,19 +31,22 @@ export default function Navbar() {
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
           >
             <li>
-              <NavLink>Home</NavLink>
+              <NavLink to="/">Home</NavLink>
             </li>
             <li>
-              <NavLink>Add Articles</NavLink>
+              <NavLink to="/addArticles">Add Articles</NavLink>
             </li>
             <li>
-              <NavLink>All Articles</NavLink>
+              <NavLink to="/allArticles">All Articles</NavLink>
             </li>
             <li>
-              <NavLink>Subscription</NavLink>
+              <NavLink to="/subscription">Subscription</NavLink>
             </li>
             <li>
-              <NavLink>My Articles</NavLink>
+              <NavLink to="/myArticles">My Articles</NavLink>
+            </li>
+            <li>
+              <NavLink to="/dashboard/users">Dashboard</NavLink>
             </li>
           </ul>
         </div>
@@ -68,6 +71,9 @@ export default function Navbar() {
           </li>
           <li>
             <NavLink to="/myArticles">My Articles</NavLink>
+          </li>
+          <li>
+            <NavLink to="/dashboard/users">Dashboard</NavLink>
           </li>
         </ul>
       </div>
