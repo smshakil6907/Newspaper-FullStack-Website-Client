@@ -1,12 +1,13 @@
 import React from "react";
-import { FaArchway, FaPushed, FaUsers } from "react-icons/fa";
+import { FaArchway, FaHome, FaPushed, FaUsers } from "react-icons/fa";
 import { NavLink, Outlet } from "react-router-dom";
 
 export default function Dashboard() {
+  const isAdmin = true;
   return (
-    <div className="flex">
-      <div className="w-64 min-h-full bg-orange-400">
-        <ul className="menu p-4 gap-4">
+    <div className="flex gap-4">
+      <div className="w-64 min-h-screen bg-orange-400">
+        <ul className="menu p-4 gap-2">
           <li>
             <NavLink to="/dashboard/users">
               <FaUsers></FaUsers>
@@ -23,6 +24,13 @@ export default function Dashboard() {
             <NavLink to="/dashboard/addPublisher">
               <FaPushed></FaPushed>
               Add Publisher
+            </NavLink>
+          </li>
+          <div className="divider"></div>
+          <li>
+            <NavLink to="/">
+              <FaHome></FaHome>
+              Home
             </NavLink>
           </li>
         </ul>

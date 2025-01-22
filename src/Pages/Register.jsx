@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
+import useAxiosPublic from "../Hoks/useAxiosPublic";
 import { AuthContext } from "../Provider/AuthProvider";
 
 export default function Register() {
@@ -8,6 +10,7 @@ export default function Register() {
     useContext(AuthContext);
   const [error, setError] = useState({});
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -54,7 +57,25 @@ export default function Register() {
         setUser(user);
         updateUserProfile({ displayName: name, photoURL: photo })
           .then(() => {
-            navigate("/");
+            // fetch data
+            const userInfo = {
+              name: name,
+              email: email,
+            };
+            axiosPublic.post("/users", userInfo).then((res) => {
+              if (res.data.insertedId) {
+                console.log("object");
+                // reset();
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "User Create successfully",
+                  showConfirmButton: false,
+                  timer: 1500,
+                });
+                navigate("/");
+              }
+            });
           })
           .catch((err) => {
             console.log(err);
@@ -72,7 +93,15 @@ export default function Register() {
       .then((result) => {
         const user = result.user;
         setUser(user);
-        navigate("/");
+
+        const userInfo = {
+          email: result.user?.email,
+          name: result.user?.displayName,
+        };
+        axiosPublic.post("users", userInfo).then((res) => {
+          // console.log(res.data);
+          navigate("/");
+        });
         toast.success("Logged in with Google!");
       })
       .catch((error) => {

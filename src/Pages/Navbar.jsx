@@ -1,11 +1,13 @@
 import React, { useContext } from "react";
 import { FcNews } from "react-icons/fc";
 import { Link, NavLink } from "react-router-dom";
-import { AuthContext } from "../Provider/AuthProvider";
 import image from "../assets/1144760.png";
+import useAdmin from "../Hoks/useAdmin";
+import { AuthContext } from "../Provider/AuthProvider";
 
 export default function Navbar() {
   const { user, logOut } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -45,9 +47,11 @@ export default function Navbar() {
             <li>
               <NavLink to="/myArticles">My Articles</NavLink>
             </li>
-            <li>
-              <NavLink to="/dashboard/users">Dashboard</NavLink>
-            </li>
+            {isAdmin && (
+              <li>
+                <NavLink to="/dashboard/users">Dashboard</NavLink>
+              </li>
+            )}
           </ul>
         </div>
         <a className="flex items-center gap-3 text-xl font-bold">
@@ -72,9 +76,11 @@ export default function Navbar() {
           <li>
             <NavLink to="/myArticles">My Articles</NavLink>
           </li>
-          <li>
-            <NavLink to="/dashboard/users">Dashboard</NavLink>
-          </li>
+          {isAdmin && (
+            <li>
+              <NavLink to="/dashboard/users">Dashboard</NavLink>
+            </li>
+          )}
         </ul>
       </div>
       <div className="navbar-end">

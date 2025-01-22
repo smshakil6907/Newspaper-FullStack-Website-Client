@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import useAxiosPublic from "../../Hoks/useAxiosPublic";
 import { AuthContext } from "../../Provider/AuthProvider";
 
 export default function Login() {
@@ -8,6 +9,7 @@ export default function Login() {
   const [error, setError] = useState("");
   const location = useLocation();
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -34,7 +36,15 @@ export default function Login() {
       .then((result) => {
         const user = result.user;
         setUser(user);
-        navigate("/");
+
+        const userInfo = {
+          email: result.user?.email,
+          name: result.user?.displayName,
+        };
+        axiosPublic.post("users", userInfo).then((res) => {
+          // console.log(res.data);
+          navigate("/");
+        });
         toast.success("Logged in with Google!");
       })
       .catch((error) => {

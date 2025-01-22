@@ -3,12 +3,17 @@ import Dashboard from "../MainLayout/Dashboard";
 import Main from "../MainLayout/Main";
 import AddArticles from "../Pages/AddArticles";
 import AllArticles from "../Pages/AllArticles";
+import AddPublisher from "../Pages/Dashboard/AddPublisher";
+import AllArticle from "../Pages/Dashboard/AllArticle";
 import Users from "../Pages/Dashboard/Users";
+import Details from "../Pages/Details";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Home/Login";
 import MyArticles from "../Pages/MyArticles";
+import PaymentPage from "../Pages/PaymentPage";
 import Register from "../Pages/Register";
 import Subscription from "../Pages/Subscription";
+import UpdateArticle from "../Pages/UpdateArticle";
 import PrivetRoutes from "../Routes/PrivetRoutes";
 
 export const router = createBrowserRouter([
@@ -48,6 +53,22 @@ export const router = createBrowserRouter([
         path: "/register",
         element: <Register></Register>,
       },
+      {
+        path: "/myArticles/updateArticle/:id",
+        element: <UpdateArticle></UpdateArticle>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/articles/${params.id}`),
+      },
+      {
+        path: "/myArticles/details/:id",
+        element: <Details></Details>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/articles/${params.id}`),
+      },
+      {
+        path: "/payment",
+        element: <PaymentPage></PaymentPage>,
+      },
     ],
   },
   {
@@ -56,8 +77,16 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "users",
-        element: <Users></Users>
-      }
-    ]
+        element: <Users></Users>,
+      },
+      {
+        path: "allArticles",
+        element: <AllArticle></AllArticle>,
+      },
+      {
+        path: "addPublisher",
+        element: <AddPublisher></AddPublisher>,
+      },
+    ],
   },
 ]);

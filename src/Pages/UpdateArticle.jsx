@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { useLoaderData } from "react-router-dom";
 import Select from "react-select";
 import useAxiosPublic from "../Hoks/useAxiosPublic";
 import { AuthContext } from "../Provider/AuthProvider";
@@ -7,7 +8,9 @@ import { AuthContext } from "../Provider/AuthProvider";
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
-export default function AddArticles() {
+export default function UpdateArticle() {
+  const article = useLoaderData();
+
   const { register, handleSubmit, reset, control } = useForm();
   const [tags, setTags] = useState([]);
   const axiosPublic = useAxiosPublic();
@@ -33,7 +36,10 @@ export default function AddArticles() {
         description: data.description,
         image: res.data.data.display_url,
       };
-      const addRess = await axiosPublic.post("/articles", addArticle);
+      const addRess = await axiosPublic.put(
+        `/articles/${article._id}`,
+        addArticle
+      );
       console.log(addRess.data);
     }
     console.log(res.data);
@@ -55,6 +61,7 @@ export default function AddArticles() {
           </div>
           <input
             type="text"
+            defaultValue={article.title}
             placeholder="Type here"
             {...register("title")}
             className="input input-bordered w-full"
@@ -80,6 +87,7 @@ export default function AddArticles() {
             <select
               {...register("publisher")}
               className="select select-bordered w-full"
+              defaultValue={article.publisher}
               required
             >
               <option value="" disabled selected>
@@ -122,6 +130,7 @@ export default function AddArticles() {
           <textarea
             className="textarea textarea-bordered h-24"
             placeholder="Description"
+            defaultValue={article.description}
             {...register("description")}
             required
           ></textarea>
@@ -135,7 +144,7 @@ export default function AddArticles() {
             required
           />
         </div>
-        <button className="btn">Add Item</button>
+        <button className="btn">Update Article</button>
       </form>
     </div>
   );
