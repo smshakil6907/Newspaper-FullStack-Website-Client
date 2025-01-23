@@ -29,10 +29,11 @@ const AllArticle = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: "Your work has been saved",
+          title: "Your article has been approved",
           showConfirmButton: false,
           timer: 1500,
         });
@@ -89,23 +90,28 @@ const AllArticle = () => {
   };
 
   // Handle Make Premium
-  const handleMakePremium = async (articleId) => {
-    try {
-      const response = await axios.put(
-        `/api/articles/${articleId}/make-premium`
-      );
-      if (response.data.success) {
-        setArticles((prev) =>
-          prev.map((article) =>
-            article.id === articleId ? { ...article, isPremium: true } : article
-          )
-        );
-        Swal.fire("Success!", "Article has been marked as premium!", "success");
-      }
-    } catch (error) {
-      console.error("Error making article premium:", error);
-      Swal.fire("Error!", "Failed to mark the article as premium.", "error");
-    }
+  const handleMakePremium = (id) => {
+    const data = {
+      isPremium: "Yes",
+    };
+    fetch(`http://localhost:5000/articles/isPremium/${id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Your article has been Premium",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      });
   };
 
   return (
@@ -181,9 +187,9 @@ const AllArticle = () => {
                   >
                     Delete
                   </button>
-                  {!article.isPremium && (
+                  {article.isPremium !== "Yes" && (
                     <button
-                      onClick={() => handleMakePremium(article.id)}
+                      onClick={() => handleMakePremium(article._id)}
                       className="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
                     >
                       Make Premium

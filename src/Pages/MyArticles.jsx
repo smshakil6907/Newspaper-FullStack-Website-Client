@@ -84,7 +84,11 @@ export default function MyArticles() {
                   )}
                 </td>
                 <td className="border px-4 py-2">
-                  {article.isPremium ? "Yes" : "No"}
+                  {article.isPremium ? (
+                    <span className="text-green-500 font-bold">Yes</span>
+                  ) : (
+                    "No"
+                  )}
                 </td>
                 <td className="border px-4 py-2 flex gap-2">
                   <Link to={`details/${article._id}`}>
