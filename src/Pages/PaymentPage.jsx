@@ -10,7 +10,7 @@ const PaymentPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6 mb-7">
       <div className="bg-white p-6 shadow-lg rounded-lg w-full max-w-md text-center">
         <h1 className="text-3xl font-bold text-gray-800 mb-4">Payment</h1>
         <p className="text-gray-700 mb-2">

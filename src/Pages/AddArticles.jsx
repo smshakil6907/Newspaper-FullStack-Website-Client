@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Select from "react-select";
+import Swal from "sweetalert2";
 import useAxiosPublic from "../Hoks/useAxiosPublic";
 import { AuthContext } from "../Provider/AuthProvider";
 
@@ -12,6 +13,7 @@ export default function AddArticles() {
   const [tags, setTags] = useState([]);
   const axiosPublic = useAxiosPublic();
   const { user } = useContext(AuthContext);
+  console.log(user);
 
   const onSubmit = async (data) => {
     console.log({
@@ -27,15 +29,25 @@ export default function AddArticles() {
     if (res.data.success) {
       const addArticle = {
         title: data.title,
-        email: user.email,
+        authorEmail: user.email,
+        authorName: user.displayName,
+        authorPhoto: user.photoURL,
         publisher: data.publisher,
         tags: data.tags,
         description: data.description,
         image: res.data.data.display_url,
+        postedDate: new Date().toISOString(),
       };
       const addRess = await axiosPublic.post("/articles", addArticle);
       console.log(addRess.data);
+      Swal.fire({
+        title: "Success!",
+        text: "Your article has been successfully submitted.",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
     }
+    reset();
     console.log(res.data);
   };
 
@@ -47,7 +59,7 @@ export default function AddArticles() {
   ];
 
   return (
-    <div>
+    <div className="mb-8">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="form-control w-full my-6">
           <div className="label">
@@ -59,17 +71,6 @@ export default function AddArticles() {
             {...register("title")}
             className="input input-bordered w-full"
             required
-          />
-        </div>
-        <div className="form-control w-full my-6">
-          <div className="label">
-            <span className="label-text">Email</span>
-          </div>
-          <input
-            type="email"
-            value={user?.email} // Display user's email
-            readOnly // Make it readonly
-            className="input input-bordered w-full"
           />
         </div>
         <div className="flex gap-4">
@@ -135,7 +136,7 @@ export default function AddArticles() {
             required
           />
         </div>
-        <button className="btn">Add Item</button>
+        <button className="btn">Add Article</button>
       </form>
     </div>
   );

@@ -66,10 +66,11 @@ export default function MyArticles() {
                 <td className="border px-4 py-2">{index + 1}</td>
                 <td className="border px-4 py-2">{article.title}</td>
                 <td className="border px-4 py-2">
-                  {article.status === "approved" && (
+                  {article.status === "approved" ? (
                     <span className="text-green-500 font-bold">Approved</span>
+                  ) : (
+                    <span className="text-yellow-500 font-bold">Pending</span>
                   )}
-                  <span className="text-yellow-500 font-bold">Pending</span>
                   {article.status === "declined" && (
                     <div className="flex items-center gap-2">
                       <span className="text-red-500 font-bold">Declined</span>
