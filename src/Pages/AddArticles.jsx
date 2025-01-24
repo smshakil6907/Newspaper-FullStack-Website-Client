@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import Select from "react-select";
 import Swal from "sweetalert2";
@@ -13,7 +13,15 @@ export default function AddArticles() {
   const [tags, setTags] = useState([]);
   const axiosPublic = useAxiosPublic();
   const { user } = useContext(AuthContext);
-  console.log(user);
+  const [publishers, setPublishers] = useState([]);
+
+  useEffect(() => {
+    const fetchPublishers = async () => {
+      const response = await axiosPublic.get("/publisher");
+      setPublishers(response.data);
+    };
+    fetchPublishers();
+  }, [axiosPublic]);
 
   const onSubmit = async (data) => {
     console.log({
@@ -86,10 +94,9 @@ export default function AddArticles() {
               <option value="" disabled selected>
                 Select a Publisher
               </option>
-              <option value="entertainment">Entertainment</option>
-              <option value="sports">Sports</option>
-              <option value="news">News</option>
-              <option value="health">Health</option>
+              {publishers.map((publisher) => (
+                <option value="">{publisher.name}</option>
+              ))}
             </select>
           </div>
           <div className="form-control w-full">

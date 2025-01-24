@@ -1,54 +1,45 @@
-import axios from "axios";
 import React, { useState } from "react";
 import Swal from "sweetalert2";
+import useAxiosPublic from "../../Hoks/useAxiosPublic";
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
 const AddPublisher = () => {
   const [publisherName, setPublisherName] = useState("");
   const [publisherLogo, setPublisherLogo] = useState(null);
-
-  const imageHostingAPI = "https://api.imgbb.com/1/upload"; // Replace with your API endpoint
-  const imageHostingKey = "your_imgbb_api_key"; // Replace with your actual API key
+  const axiosPublic = useAxiosPublic();
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    if (!publisherName || !publisherLogo) {
-      Swal.fire({
-        title: "Error",
-        text: "Please fill in all fields.",
-        icon: "error",
-        confirmButtonText: "OK",
-      });
-      return;
-    }
-
-    // Upload the image to the image hosting service
-    const formData = new FormData();
-    formData.append("image", publisherLogo);
-
     try {
-      const imageRes = await axios.post(
-        `${imageHostingAPI}?key=${imageHostingKey}`,
-        formData
-      );
+      const formData = new FormData();
+      formData.append("image", publisherLogo);
+
+      const imageRes = await axiosPublic.post(image_hosting_api, formData, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      });
+
       if (imageRes.data.success) {
+        const logoUrl = imageRes.data.data.display_url;
         const publisherData = {
           name: publisherName,
-          logo: imageRes.data.data.display_url,
+          logo: logoUrl,
         };
-
-        // Save the publisher data to the backend
-        const res = await axios.post("/api/publishers", publisherData); // Replace with your API endpoint
-        if (res.data.success) {
-          Swal.fire({
-            title: "Success",
-            text: "Publisher added successfully!",
-            icon: "success",
-            confirmButtonText: "OK",
-          });
-          setPublisherName("");
-          setPublisherLogo(null);
-        }
+        console.log(publisherData);
+        const res = await axiosPublic.post("/publisher", publisherData);
+        console.log(res.data);
+        Swal.fire({
+          title: "Success",
+          text: "Publisher added successfully!",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+        setPublisherName("");
+        setPublisherLogo(null);
       }
     } catch (error) {
       Swal.fire({
