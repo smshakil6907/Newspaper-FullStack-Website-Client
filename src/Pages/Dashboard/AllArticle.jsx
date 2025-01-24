@@ -173,20 +173,23 @@ const AllArticle = () => {
                       Approve
                     </button>
                   )}
+
                   {article.status !== "declined" && (
                     <button
-                      onClick={() => handleDecline(article.id)}
+                      onClick={() => handleDecline(article._id)}
                       className="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700"
                     >
                       Decline
                     </button>
                   )}
+
                   <button
                     onClick={() => handleDelete(article._id)}
                     className="bg-gray-600 text-white px-4 py-1 rounded hover:bg-gray-700"
                   >
                     Delete
                   </button>
+
                   {article.isPremium !== "Yes" && (
                     <button
                       onClick={() => handleMakePremium(article._id)}

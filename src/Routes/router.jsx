@@ -7,6 +7,7 @@ import AddPublisher from "../Pages/Dashboard/AddPublisher";
 import AllArticle from "../Pages/Dashboard/AllArticle";
 import Users from "../Pages/Dashboard/Users";
 import Details from "../Pages/Details";
+import ArticleDetailsPage from "../Pages/Home/ArticleDetailsPage";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Home/Login";
 import MyArticles from "../Pages/MyArticles";
@@ -62,6 +63,12 @@ export const router = createBrowserRouter([
       {
         path: "/myArticles/details/:id",
         element: <Details></Details>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/articles/${params.id}`),
+      },
+      {
+        path: "articleDetails/:id",
+        element: <ArticleDetailsPage></ArticleDetailsPage>,
         loader: ({ params }) =>
           fetch(`http://localhost:5000/articles/${params.id}`),
       },
