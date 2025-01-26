@@ -37,7 +37,7 @@ export default function AddArticles() {
     if (res.data.success) {
       const addArticle = {
         title: data.title,
-        authorEmail: user.email,
+        email: user.email,
         authorName: user.displayName,
         authorPhoto: user.photoURL,
         publisher: data.publisher,
@@ -95,7 +95,9 @@ export default function AddArticles() {
                 Select a Publisher
               </option>
               {publishers.map((publisher) => (
-                <option value="">{publisher.name}</option>
+                <option key={publisher._id} value={publisher.name}>
+                  {publisher.name}
+                </option>
               ))}
             </select>
           </div>

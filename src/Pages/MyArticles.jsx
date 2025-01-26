@@ -68,19 +68,20 @@ export default function MyArticles() {
                 <td className="border px-4 py-2">
                   {article.status === "approved" ? (
                     <span className="text-green-500 font-bold">Approved</span>
-                  ) : (
-                    <span className="text-yellow-500 font-bold">Pending</span>
-                  )}
-                  {article.status === "declined" && (
+                  ) : article.status === "declined" ? (
                     <div className="flex items-center gap-2">
                       <span className="text-red-500 font-bold">Declined</span>
                       <button
-                        onClick={() => openDeclineReasonModal(article.reason)}
+                        onClick={() =>
+                          openDeclineReasonModal(article.declineReason)
+                        }
                         className="btn btn-sm btn-outline btn-error"
                       >
                         View Reason
                       </button>
                     </div>
+                  ) : (
+                    <span className="text-yellow-500 font-bold">Pending</span>
                   )}
                 </td>
                 <td className="border px-4 py-2">
@@ -92,9 +93,9 @@ export default function MyArticles() {
                 </td>
                 <td className="border px-4 py-2 flex gap-2">
                   <Link to={`details/${article._id}`}>
-                    <button className="btn btn-sm btn-info">
+                    <button className="btn btn-sm btn-info flex">
                       {" "}
-                      <FaBook></FaBook> Details
+                      <FaBook className="flex"></FaBook> Details
                     </button>
                   </Link>
                   <Link to={`updateArticle/${article._id}`}>

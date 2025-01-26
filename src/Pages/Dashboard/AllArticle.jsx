@@ -14,7 +14,7 @@ const AllArticle = () => {
       .catch((error) => console.error("Error fetching articles:", error));
   }, []);
 
-  console.log(articles);
+  // console.log(articles);
 
   const handleApprove = (id) => {
     const data = {
@@ -41,36 +41,37 @@ const AllArticle = () => {
   };
 
   // Handle Decline Article
-  const handleDecline = (articleId) => {
+  const handleDecline = (id) => {
     Swal.fire({
       title: "Reason for Decline",
       input: "textarea",
       inputPlaceholder: "Write your reason here...",
       showCancelButton: true,
       confirmButtonText: "Submit",
-    }).then(async (result) => {
-      if (result.isConfirmed) {
-        const reason = result.value;
-        try {
-          const response = await axios.put(
-            `/api/articles/${articleId}/decline`,
-            { reason }
-          );
-          if (response.data.success) {
-            setArticles((prev) =>
-              prev.map((article) =>
-                article.id === articleId
-                  ? { ...article, status: "declined", declineReason: reason }
-                  : article
-              )
-            );
-            Swal.fire("Declined!", "Article has been declined.", "success");
-          }
-        } catch (error) {
-          console.error("Error declining article:", error);
-          Swal.fire("Error!", "Failed to decline the article.", "error");
-        }
-      }
+    }).then((result) => {
+      const reason = result.value || "No reason provided";
+      const data = {
+        status: "declined",
+        declineReason: reason,
+      };
+      fetch(`http://localhost:5000/articles/approve/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("Response:", data);
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your article has been approved",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        });
     });
   };
 
