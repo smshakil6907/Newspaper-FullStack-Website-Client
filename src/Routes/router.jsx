@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import MyProfile from "../Component/MyProfile";
+import NotFound from "../Component/NotFound";
 import Dashboard from "../MainLayout/Dashboard";
 import Main from "../MainLayout/Main";
 import AddArticles from "../Pages/AddArticles";
@@ -135,5 +136,9 @@ export const router = createBrowserRouter([
         element: <AdminHome></AdminHome>,
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFound></NotFound>,
   },
 ]);
