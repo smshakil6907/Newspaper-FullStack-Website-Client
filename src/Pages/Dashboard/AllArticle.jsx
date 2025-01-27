@@ -5,6 +5,8 @@ import Swal from "sweetalert2";
 const AllArticle = () => {
   const [articles, setArticles] = useState([]);
   const [declineReason, setDeclineReason] = useState("");
+  const [currentPage, setCurrentPage] = useState(0);
+  const articlePerPage = 4;
 
   // Fetch articles from API
   useEffect(() => {
@@ -40,6 +42,9 @@ const AllArticle = () => {
       });
   };
 
+  const numberOfPages = Math.ceil(articles.length / articlePerPage);
+  const pages = [...Array(numberOfPages).keys()];
+
   // Handle Decline Article
   const handleDecline = (id) => {
     Swal.fire({
@@ -67,7 +72,7 @@ const AllArticle = () => {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: "Your article has been approved",
+            title: "Your article has been decline",
             showConfirmButton: false,
             timer: 1500,
           });
@@ -115,6 +120,23 @@ const AllArticle = () => {
       });
   };
 
+  const handlePrevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < pages.length - 1) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const paginatedUsers = articles.slice(
+    currentPage * articlePerPage,
+    currentPage * articlePerPage + articlePerPage
+  );
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-md p-4">
@@ -133,7 +155,7 @@ const AllArticle = () => {
             </tr>
           </thead>
           <tbody>
-            {articles.map((article) => (
+            {paginatedUsers.map((article) => (
               <tr key={article._id} className="hover:bg-gray-100">
                 <td className="border border-gray-300 px-4 py-2">
                   {article.title}
@@ -204,6 +226,25 @@ const AllArticle = () => {
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="flex justify-center mb-3 mt-3">
+        <button onClick={handlePrevPage} className="mr-3 btn btn-outline">
+          Prev
+        </button>
+        {pages.map((page) => (
+          <button
+            key={page}
+            onClick={() => setCurrentPage(page)}
+            className={`btn btn-outline ml-3 ${
+              currentPage === page ? "bg-orange-400" : ""
+            }`}
+          >
+            {page + 1}
+          </button>
+        ))}
+        <button onClick={handleNextPage} className="ml-3 btn btn-outline">
+          Next
+        </button>
       </div>
     </div>
   );

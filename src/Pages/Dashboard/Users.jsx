@@ -1,11 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import { FaTrashAlt, FaUsers } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../Hoks/useAxiosSecure";
 
 export default function Users() {
   const axiosSecure = useAxiosSecure();
+  const [currentPage, setCurrentPage] = useState(0);
+  const articlePerPage = 4; // Items per page
 
   const { data: users = [], refetch } = useQuery({
     queryKey: ["users"],
@@ -15,9 +17,18 @@ export default function Users() {
     },
   });
 
+  const numberOfPages = Math.ceil(users.length / articlePerPage);
+  const pages = [...Array(numberOfPages).keys()];
+
+  // Slice users based on current page
+  const paginatedUsers = users.slice(
+    currentPage * articlePerPage,
+    currentPage * articlePerPage + articlePerPage
+  );
+
+  // Make admin
   const handleMakeAdmin = (user) => {
     axiosSecure.patch(`/users/admin/${user._id}`).then((res) => {
-      // console.log(res.data);
       if (res.data.modifiedCount > 0) {
         refetch();
         Swal.fire({
@@ -31,6 +42,7 @@ export default function Users() {
     });
   };
 
+  // Delete user
   const handleDelete = (user) => {
     Swal.fire({
       title: "Are you sure?",
@@ -47,13 +59,25 @@ export default function Users() {
             refetch();
             Swal.fire({
               title: "Deleted!",
-              text: "Your file has been deleted.",
+              text: "User has been deleted.",
               icon: "success",
             });
           }
         });
       }
     });
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handleNextPage = () => {
+    if (currentPage < pages.length - 1) {
+      setCurrentPage(currentPage + 1);
+    }
   };
 
   return (
@@ -64,7 +88,6 @@ export default function Users() {
       </div>
       <div className="overflow-x-auto">
         <table className="table table-zebra w-full">
-          {/* head */}
           <thead>
             <tr>
               <th>Sr.</th>
@@ -75,9 +98,9 @@ export default function Users() {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
+            {paginatedUsers.map((user, index) => (
               <tr key={user._id}>
-                <th>{index + 1}</th>
+                <th>{currentPage * articlePerPage + index + 1}</th>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>
@@ -88,7 +111,7 @@ export default function Users() {
                       onClick={() => handleMakeAdmin(user)}
                       className="btn btn-lg bg-orange-600"
                     >
-                      <FaUsers className="text-white text-2xl"></FaUsers>
+                      <FaUsers className="text-white text-2xl" />
                     </button>
                   )}
                 </td>
@@ -97,13 +120,32 @@ export default function Users() {
                     onClick={() => handleDelete(user)}
                     className="btn btn-ghost btn-lg"
                   >
-                    <FaTrashAlt className="text-red-500"></FaTrashAlt>
+                    <FaTrashAlt className="text-red-500" />
                   </button>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="flex justify-center mb-5">
+        <button onClick={handlePrevPage} className="mr-3 btn btn-outline">
+          Prev
+        </button>
+        {pages.map((page) => (
+          <button
+            key={page}
+            onClick={() => setCurrentPage(page)}
+            className={`btn btn-outline ml-3 ${
+              currentPage === page ? "bg-orange-400" : ""
+            }`}
+          >
+            {page + 1}
+          </button>
+        ))}
+        <button onClick={handleNextPage} className="ml-3 btn btn-outline">
+          Next
+        </button>
       </div>
     </div>
   );

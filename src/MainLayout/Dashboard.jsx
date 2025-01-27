@@ -9,6 +9,12 @@ export default function Dashboard() {
       <div className="w-64 min-h-screen bg-orange-400">
         <ul className="menu p-4 gap-2">
           <li>
+            <NavLink to="/dashboard/adminHome">
+              <FaHome></FaHome>
+              Admin Home
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/dashboard/users">
               <FaUsers></FaUsers>
               All Users

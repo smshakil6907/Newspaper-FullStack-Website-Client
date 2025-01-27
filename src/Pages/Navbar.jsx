@@ -1,13 +1,25 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { FcNews } from "react-icons/fc";
 import { Link, NavLink } from "react-router-dom";
 import image from "../assets/1144760.png";
 import useAdmin from "../Hoks/useAdmin";
+import useSubscribe from "../Hoks/useSubscribe";
 import { AuthContext } from "../Provider/AuthProvider";
 
 export default function Navbar() {
   const { user, logOut } = useContext(AuthContext);
   const [isAdmin] = useAdmin();
+  const [isSubscribe] = useSubscribe();
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownOpen(!dropdownOpen);
+  };
+
+  const closeDropdown = () => {
+    setDropdownOpen(false);
+  };
+
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -41,15 +53,17 @@ export default function Navbar() {
             <li>
               <NavLink to="/allArticles">All Articles</NavLink>
             </li>
-            <li>
-              <NavLink to="/subscription">Subscription</NavLink>
-            </li>
+            {isSubscribe && (
+              <li>
+                <NavLink to="/subscription">Subscription</NavLink>
+              </li>
+            )}
             <li>
               <NavLink to="/myArticles">My Articles</NavLink>
             </li>
             {isAdmin && (
               <li>
-                <NavLink to="/dashboard/users">Dashboard</NavLink>
+                <NavLink to="/dashboard/adminHome">Dashboard</NavLink>
               </li>
             )}
           </ul>
@@ -64,21 +78,32 @@ export default function Navbar() {
           <li>
             <NavLink to="/">Home</NavLink>
           </li>
-          <li>
-            <NavLink to="/addArticles">Add Articles</NavLink>
-          </li>
+          {user && (
+            <li>
+              <NavLink to="/addArticles">Add Articles</NavLink>
+            </li>
+          )}
           <li>
             <NavLink to="/allArticles">All Articles</NavLink>
           </li>
-          <li>
-            <NavLink to="/subscription">Subscription</NavLink>
-          </li>
-          <li>
-            <NavLink to="/myArticles">My Articles</NavLink>
-          </li>
+          {user && (
+            <li>
+              <NavLink to="/subscription">Subscription</NavLink>
+            </li>
+          )}
+          {user && (
+            <li>
+              <NavLink to="/myArticles">My Articles</NavLink>
+            </li>
+          )}
+          {isSubscribe && (
+            <li>
+              <NavLink to="/premiumArticle">Premium Articles</NavLink>
+            </li>
+          )}
           {isAdmin && (
             <li>
-              <NavLink to="/dashboard/users">Dashboard</NavLink>
+              <NavLink to="/dashboard/adminHome">Dashboard</NavLink>
             </li>
           )}
         </ul>
@@ -89,8 +114,21 @@ export default function Navbar() {
             <div>
               <img
                 src={user?.photoURL && user?.photoURL}
-                className="w-10 h-10 rounded-full border-2 border-gray-300"
+                className="w-10 h-10 rounded-full border-2 border-gray-300 cursor-pointer"
+                onClick={toggleDropdown}
               />
+              {dropdownOpen && (
+                <div
+                  className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-md border z-10"
+                  onMouseLeave={closeDropdown}
+                >
+                  <ul>
+                    <li className="px-4 py-2 hover:bg-gray-200">
+                      <Link to="/myProfile">My Profile</Link>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
           ) : (
             <div className="w-10 h-10 rounded-full">

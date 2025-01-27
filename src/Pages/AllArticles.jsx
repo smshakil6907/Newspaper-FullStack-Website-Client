@@ -2,12 +2,14 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useAxiosPublic from "../Hoks/useAxiosPublic";
+import useSubscribe from "../Hoks/useSubscribe";
 import { AuthContext } from "../Provider/AuthProvider";
 
 export default function AllArticles() {
   const axiosPublic = useAxiosPublic();
   const { setUser, user } = useContext(AuthContext);
-  console.log(user);
+  const [isSubscribe] = useSubscribe();
+  // console.log(user);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [publisherFilter, setPublisherFilter] = useState("");
@@ -72,23 +74,35 @@ export default function AllArticles() {
                 Publisher: {article.publisher}
               </p>
               <p className="text-gray-700 mb-4">{article.description}</p>
-              <button
+              {isSubscribe ? (
+                <button
+                  onClick={() => navigate(`/articleDetails/${article._id}`)}
+                  className="px-4 py-2 text-white font-bold rounded-md w-full bg-blue-500 hover:bg-blue-600"
+                >
+                  View Details
+                </button>
+              ) : (
+                <button className="px-4 py-2 text-white font-bold rounded-md w-full bg-gray-400 cursor-not-allowed">
+                  Subscribe to Access
+                </button>
+              )}
+              {/* <button
                 onClick={() =>
-                  article.isPremium && !user?.hasSubscription
+                  article.isPremium && !user?.isSubscribed
                     ? null
                     : navigate(`/articleDetails/${article._id}`)
                 }
                 className={`px-4 py-2 text-white font-bold rounded-md w-full ${
-                  article.isPremium && !user?.hasSubscription
+                  article.isPremium && !user?.isSubscribed
                     ? "bg-gray-400 cursor-not-allowed"
                     : "bg-blue-600 hover:bg-blue-700"
                 }`}
-                disabled={article.isPremium && !user?.hasSubscription}
+                disabled={article.isPremium && !user?.isSubscribed}
               >
-                {article.isPremium && !user?.hasSubscription
+                {article.isPremium && !user?.isSubscribed
                   ? "Subscribe to Access"
                   : "View Details"}
-              </button>
+              </button> */}
             </div>
           ))}
         </div>
