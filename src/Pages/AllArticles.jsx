@@ -74,7 +74,7 @@ export default function AllArticles() {
                 Publisher: {article.publisher}
               </p>
               <p className="text-gray-700 mb-4">{article.description}</p>
-              {isSubscribe ? (
+              {isSubscribe || !article.isPremium ? (
                 <button
                   onClick={() => navigate(`/articleDetails/${article._id}`)}
                   className="px-4 py-2 text-white font-bold rounded-md w-full bg-blue-500 hover:bg-blue-600"
@@ -86,23 +86,6 @@ export default function AllArticles() {
                   Subscribe to Access
                 </button>
               )}
-              {/* <button
-                onClick={() =>
-                  article.isPremium && !user?.isSubscribed
-                    ? null
-                    : navigate(`/articleDetails/${article._id}`)
-                }
-                className={`px-4 py-2 text-white font-bold rounded-md w-full ${
-                  article.isPremium && !user?.isSubscribed
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-blue-600 hover:bg-blue-700"
-                }`}
-                disabled={article.isPremium && !user?.isSubscribed}
-              >
-                {article.isPremium && !user?.isSubscribed
-                  ? "Subscribe to Access"
-                  : "View Details"}
-              </button> */}
             </div>
           ))}
         </div>

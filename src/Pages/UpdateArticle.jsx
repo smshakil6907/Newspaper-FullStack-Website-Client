@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { useLoaderData } from "react-router-dom";
 import Select from "react-select";
+import Swal from "sweetalert2";
 import useAxiosPublic from "../Hoks/useAxiosPublic";
 import { AuthContext } from "../Provider/AuthProvider";
 
@@ -17,10 +18,10 @@ export default function UpdateArticle() {
   const { user } = useContext(AuthContext);
 
   const onSubmit = async (data) => {
-    console.log({
-      ...data,
-      tags: tags.map((tag) => tag.value),
-    });
+    // console.log({
+    //   ...data,
+    //   tags: tags.map((tag) => tag.value),
+    // });
     const imageFile = { image: data.image[0] };
     const res = await axiosPublic.post(image_hosting_api, imageFile, {
       headers: {
@@ -32,7 +33,7 @@ export default function UpdateArticle() {
         title: data.title,
         email: user.email,
         publisher: data.publisher,
-        tags: data.tags,
+        tags: tags.map((tag) => tag.value),
         description: data.description,
         image: res.data.data.display_url,
       };
@@ -40,9 +41,16 @@ export default function UpdateArticle() {
         `/articles/${article._id}`,
         addArticle
       );
-      console.log(addRess.data);
+      // console.log(addRess.data);
+      Swal.fire({
+        title: "Success!",
+        text: "Your article has been successfully submitted.",
+        icon: "success",
+        confirmButtonText: "OK",
+      });
     }
-    console.log(res.data);
+    reset();
+    // console.log(res.data);
   };
 
   const options = [
@@ -109,7 +117,7 @@ export default function UpdateArticle() {
               defaultValue={[]}
               render={({ field }) => (
                 <Select
-                  {...register("image")}
+                  {...register("tags")}
                   options={options}
                   isMulti
                   value={tags}

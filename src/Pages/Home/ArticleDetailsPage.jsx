@@ -1,20 +1,19 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
 
 const ArticleDetailsPage = () => {
   const { id } = useParams();
   const article = useLoaderData();
+  const [viewCount, setViewCount] = useState(article.views || 0);
 
   useEffect(() => {
     const incrementViewCount = async () => {
-      try {
-        await axios.patch(`/articles/view/${id}`);
-      } catch (error) {
-        console.error("Error updating view count:", error);
-      }
+      const response = await axios.patch(
+        `http://localhost:5000/articles/view/${id}`
+      );
+      setViewCount(response.data.viewCount);
     };
-
     incrementViewCount();
   }, [id]);
 
@@ -33,7 +32,7 @@ const ArticleDetailsPage = () => {
           <span className="font-semibold">Publisher:</span> {article.publisher}
         </p>
         <p className="text-sm text-gray-500 mb-6">
-          <span className="font-semibold">Views:</span> {article.viewCount || 0}
+          <span className="font-semibold">Views:</span> {viewCount}
         </p>
         <p className="text-gray-700 leading-relaxed">{article.description}</p>
       </div>

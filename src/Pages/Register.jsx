@@ -48,12 +48,12 @@ export default function Register() {
       toast.error("Password must contain at least one lowercase letter.");
       return;
     }
-    console.log({ name, email, photo, password });
+    // console.log({ name, email, photo, password });
 
     createNewUser(email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
+        // console.log(user);
         setUser(user);
         updateUserProfile({ displayName: name, photoURL: photo })
           .then(() => {
@@ -64,7 +64,7 @@ export default function Register() {
             };
             axiosPublic.post("/users", userInfo).then((res) => {
               if (res.data.insertedId) {
-                console.log("object");
+                // console.log("object");
                 // reset();
                 Swal.fire({
                   position: "top-end",

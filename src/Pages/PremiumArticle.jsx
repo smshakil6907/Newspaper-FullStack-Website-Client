@@ -59,20 +59,6 @@ export default function PremiumArticle() {
                     Subscribe to Access
                   </button>
                 )}
-                {/* <button
-                  className={`px-4 py-2 text-white font-bold rounded-md w-full ${
-                    user?.isSubscribed
-                      ? "bg-blue-500 text-white hover:bg-blue-600"
-                      : "bg-gray-400 cursor-not-allowed"
-                  }`}
-                  disabled={!user?.isSubscribed}
-                  onClick={() =>
-                    user?.isSubscribed &&
-                    alert(`Viewing details for: ${article.title}`)
-                  }
-                >
-                  {user?.isSubscribed ? "View Details" : "Subscribe to Access"}
-                </button> */}
               </div>
             </div>
           ))}

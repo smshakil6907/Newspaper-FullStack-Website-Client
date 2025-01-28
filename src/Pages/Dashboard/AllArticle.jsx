@@ -31,7 +31,7 @@ const AllArticle = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -59,7 +59,8 @@ const AllArticle = () => {
         status: "declined",
         declineReason: reason,
       };
-      fetch(`http://localhost:5000/articles/approve/${id}`, {
+      // console.log(data);
+      fetch(`http://localhost:5000/articles/decline/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -68,7 +69,7 @@ const AllArticle = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log("Response:", data);
+          // console.log("Response:", data);
           Swal.fire({
             position: "top-end",
             icon: "success",
@@ -82,17 +83,38 @@ const AllArticle = () => {
 
   // Handle Delete Article
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this article?"
-    );
-    if (confirmDelete) {
-      try {
-        await axios.delete(`http://localhost:5000/articles/${id}`);
-        setArticles((prev) => prev.filter((article) => article._id !== id));
-      } catch (error) {
-        console.error("Error deleting article:", error);
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "Cancel",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await axios.delete(`http://localhost:5000/articles/${id}`);
+          setArticles((prev) => prev.filter((article) => article._id !== id));
+
+          Swal.fire({
+            title: "Deleted!",
+            text: "The article has been deleted.",
+            icon: "success",
+            confirmButtonText: "OK",
+          });
+        } catch (error) {
+          console.error("Error deleting article:", error);
+          Swal.fire({
+            title: "Error!",
+            text: "There was a problem deleting the article. Please try again.",
+            icon: "error",
+            confirmButtonText: "OK",
+          });
+        }
       }
-    }
+    });
   };
 
   // Handle Make Premium
@@ -109,7 +131,7 @@ const AllArticle = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        // console.log(data);
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -138,94 +160,100 @@ const AllArticle = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-md p-4">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6">All Articles</h1>
+    <div>
+      <div className="min-h-screen bg-gray-100 p-6 overflow-x-auto">
+        <div className="max-w-7xl mx-auto shadow-lg rounded-md p-4">
+          <h1 className="text-2xl font-bold text-gray-800 mb-6">
+            All Articles
+          </h1>
 
-        <table className="w-full table-auto border-collapse border border-gray-300">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="border border-gray-300 px-4 py-2">Title</th>
-              <th className="border border-gray-300 px-4 py-2">Author</th>
-              <th className="border border-gray-300 px-4 py-2">Email</th>
-              <th className="border border-gray-300 px-4 py-2">Photo</th>
-              <th className="border border-gray-300 px-4 py-2">Posted Date</th>
-              <th className="border border-gray-300 px-4 py-2">Status</th>
-              <th className="border border-gray-300 px-4 py-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedUsers.map((article) => (
-              <tr key={article._id} className="hover:bg-gray-100">
-                <td className="border border-gray-300 px-4 py-2">
-                  {article.title}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {article.authorName}
-                </td>
-                <td className="border border-gray-300 px-4 py-2">
-                  {article.authorEmail}
-                </td>
-                <td className="border border-gray-300 px-4 py-2 text-center">
-                  <img
-                    src={
-                      article.authorPhoto || "https://via.placeholder.com/50"
-                    }
-                    alt="Author"
-                    className="w-10 h-10 rounded-full mx-auto"
-                  />
-                </td>
-                <td className="border border-gray-300 px-4 py-2 text-center">
-                  {new Date(article.postedDate).toLocaleDateString()}
-                </td>
-                <td className="border border-gray-300 px-4 py-2 text-center">
-                  {article.status === "approved" ? (
-                    <span className="text-green-600 font-bold">Approved</span>
-                  ) : article.status === "declined" ? (
-                    <span className="text-red-600 font-bold">Declined</span>
-                  ) : (
-                    <span className="text-yellow-600 font-bold">Pending</span>
-                  )}
-                </td>
-                <td className="border border-gray-300 px-4 py-2 text-center space-y-2">
-                  {article.status !== "approved" && (
-                    <button
-                      onClick={() => handleApprove(article._id)}
-                      className="bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700"
-                    >
-                      Approve
-                    </button>
-                  )}
-
-                  {article.status !== "declined" && (
-                    <button
-                      onClick={() => handleDecline(article._id)}
-                      className="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700"
-                    >
-                      Decline
-                    </button>
-                  )}
-
-                  <button
-                    onClick={() => handleDelete(article._id)}
-                    className="bg-gray-600 text-white px-4 py-1 rounded hover:bg-gray-700"
-                  >
-                    Delete
-                  </button>
-
-                  {article.isPremium !== "Yes" && (
-                    <button
-                      onClick={() => handleMakePremium(article._id)}
-                      className="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
-                    >
-                      Make Premium
-                    </button>
-                  )}
-                </td>
+          <table className="w-full table-auto border-collapse border border-gray-300">
+            <thead>
+              <tr className="bg-gray-200">
+                <th className="border border-gray-300 px-4 py-2">Title</th>
+                <th className="border border-gray-300 px-4 py-2">Author</th>
+                <th className="border border-gray-300 px-4 py-2">Email</th>
+                <th className="border border-gray-300 px-4 py-2">Photo</th>
+                <th className="border border-gray-300 px-4 py-2">
+                  Posted Date
+                </th>
+                <th className="border border-gray-300 px-4 py-2">Status</th>
+                <th className="border border-gray-300 px-4 py-2">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {paginatedUsers.map((article) => (
+                <tr key={article._id} className="hover:bg-gray-100">
+                  <td className="border border-gray-300 px-4 py-2">
+                    {article.title}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {article.authorName}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {article.authorEmail}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">
+                    <img
+                      src={
+                        article.authorPhoto || "https://via.placeholder.com/50"
+                      }
+                      alt="Author"
+                      className="w-10 h-10 rounded-full mx-auto"
+                    />
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">
+                    {new Date(article.postedDate).toLocaleDateString()}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-center">
+                    {article.status === "approved" ? (
+                      <span className="text-green-600 font-bold">Approved</span>
+                    ) : article.status === "declined" ? (
+                      <span className="text-red-600 font-bold">Declined</span>
+                    ) : (
+                      <span className="text-yellow-600 font-bold">Pending</span>
+                    )}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2 text-center space-y-2">
+                    {article.status !== "approved" && (
+                      <button
+                        onClick={() => handleApprove(article._id)}
+                        className="bg-green-600 text-white px-4 py-1 rounded hover:bg-green-700"
+                      >
+                        Approve
+                      </button>
+                    )}
+
+                    {article.status !== "declined" && (
+                      <button
+                        onClick={() => handleDecline(article._id)}
+                        className="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700"
+                      >
+                        Decline
+                      </button>
+                    )}
+
+                    <button
+                      onClick={() => handleDelete(article._id)}
+                      className="bg-gray-600 text-white px-4 py-1 rounded hover:bg-gray-700"
+                    >
+                      Delete
+                    </button>
+
+                    {article.isPremium !== "Yes" && (
+                      <button
+                        onClick={() => handleMakePremium(article._id)}
+                        className="bg-blue-600 text-white px-4 py-1 rounded hover:bg-blue-700"
+                      >
+                        Make Premium
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       <div className="flex justify-center mb-3 mt-3">
         <button onClick={handlePrevPage} className="mr-3 btn btn-outline">

@@ -47,20 +47,29 @@ export default function Navbar() {
             <li>
               <NavLink to="/">Home</NavLink>
             </li>
-            <li>
-              <NavLink to="/addArticles">Add Articles</NavLink>
-            </li>
+            {user && (
+              <li>
+                <NavLink to="/addArticles">Add Articles</NavLink>
+              </li>
+            )}
             <li>
               <NavLink to="/allArticles">All Articles</NavLink>
             </li>
-            {isSubscribe && (
+            {user && (
               <li>
                 <NavLink to="/subscription">Subscription</NavLink>
               </li>
             )}
-            <li>
-              <NavLink to="/myArticles">My Articles</NavLink>
-            </li>
+            {user && (
+              <li>
+                <NavLink to="/myArticles">My Articles</NavLink>
+              </li>
+            )}
+            {isSubscribe && (
+              <li>
+                <NavLink to="/premiumArticle">Premium Articles</NavLink>
+              </li>
+            )}
             {isAdmin && (
               <li>
                 <NavLink to="/dashboard/adminHome">Dashboard</NavLink>

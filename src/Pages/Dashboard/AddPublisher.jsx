@@ -29,9 +29,9 @@ const AddPublisher = () => {
           name: publisherName,
           logo: logoUrl,
         };
-        console.log(publisherData);
+        // console.log(publisherData);
         const res = await axiosPublic.post("/publisher", publisherData);
-        console.log(res.data);
+        // console.log(res.data);
         Swal.fire({
           title: "Success",
           text: "Publisher added successfully!",

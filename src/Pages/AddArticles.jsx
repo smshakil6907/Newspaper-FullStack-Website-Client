@@ -24,10 +24,10 @@ export default function AddArticles() {
   }, [axiosPublic]);
 
   const onSubmit = async (data) => {
-    console.log({
-      ...data,
-      tags: tags.map((tag) => tag.value),
-    });
+    // console.log({
+    //   ...data,
+    //   tags: tags.map((tag) => tag.value),
+    // });
     const imageFile = { image: data.image[0] };
     const res = await axiosPublic.post(image_hosting_api, imageFile, {
       headers: {
@@ -41,13 +41,13 @@ export default function AddArticles() {
         authorName: user.displayName,
         authorPhoto: user.photoURL,
         publisher: data.publisher,
-        tags: data.tags,
+        tags: tags.map((tag) => tag.value),
         description: data.description,
         image: res.data.data.display_url,
         postedDate: new Date().toISOString(),
       };
       const addRess = await axiosPublic.post("/articles", addArticle);
-      console.log(addRess.data);
+      // console.log(addRess.data);
       Swal.fire({
         title: "Success!",
         text: "Your article has been successfully submitted.",
@@ -56,7 +56,7 @@ export default function AddArticles() {
       });
     }
     reset();
-    console.log(res.data);
+    // console.log(res.data);
   };
 
   const options = [
@@ -111,7 +111,7 @@ export default function AddArticles() {
               defaultValue={[]}
               render={({ field }) => (
                 <Select
-                  {...register("image")}
+                  {...register("tags")}
                   options={options}
                   isMulti
                   value={tags}
