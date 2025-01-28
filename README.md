@@ -3,9 +3,9 @@
 ## Website Information
 
 - **Website Name:** Newspaper FullStack Website
-- **Admin Username:** `admin`
-- **Admin Password:** `admin123`
-- **Live Site URL:** [https://my-articles-dashboard.live](https://my-articles-dashboard.live)
+- **Admin Username:** `saniya@balia.com`
+- **Admin Password:** `Smshakil`
+- **Live Site URL:** [https://newspaper-website-4932d.web.app/](https://newspaper-website-4932d.web.app/)
 
 ---
 

@@ -10,7 +10,7 @@ const AllArticle = () => {
 
   // Fetch articles from API
   useEffect(() => {
-    fetch("http://localhost:5000/articles")
+    fetch("https://newspaper-fullstack-website-server.vercel.app/articles")
       .then((res) => res.json())
       .then((data) => setArticles(data))
       .catch((error) => console.error("Error fetching articles:", error));
@@ -22,13 +22,16 @@ const AllArticle = () => {
     const data = {
       status: "approved",
     };
-    fetch(`http://localhost:5000/articles/approve/${id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+    fetch(
+      `https://newspaper-fullstack-website-server.vercel.app/articles/approve/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);
@@ -60,13 +63,16 @@ const AllArticle = () => {
         declineReason: reason,
       };
       // console.log(data);
-      fetch(`http://localhost:5000/articles/decline/${id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
+      fetch(
+        `https://newspaper-fullstack-website-server.vercel.app/articles/decline/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      )
         .then((res) => res.json())
         .then((data) => {
           // console.log("Response:", data);
@@ -95,7 +101,9 @@ const AllArticle = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`http://localhost:5000/articles/${id}`);
+          await axios.delete(
+            `https://newspaper-fullstack-website-server.vercel.app/articles/${id}`
+          );
           setArticles((prev) => prev.filter((article) => article._id !== id));
 
           Swal.fire({
@@ -122,13 +130,16 @@ const AllArticle = () => {
     const data = {
       isPremium: "Yes",
     };
-    fetch(`http://localhost:5000/articles/isPremium/${id}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+    fetch(
+      `https://newspaper-fullstack-website-server.vercel.app/articles/isPremium/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         // console.log(data);

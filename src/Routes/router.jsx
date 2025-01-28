@@ -71,7 +71,9 @@ export const router = createBrowserRouter([
         path: "/myArticles/updateArticle/:id",
         element: <UpdateArticle></UpdateArticle>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/articles/${params.id}`),
+          fetch(
+            `https://newspaper-fullstack-website-server.vercel.app/articles/${params.id}`
+          ),
       },
       {
         path: "/myArticles/details/:id",
@@ -81,13 +83,17 @@ export const router = createBrowserRouter([
           </PrivetRoutes>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/articles/${params.id}`),
+          fetch(
+            `https://newspaper-fullstack-website-server.vercel.app/articles/${params.id}`
+          ),
       },
       {
         path: "articleDetails/:id",
         element: <ArticleDetailsPage></ArticleDetailsPage>,
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/articles/${params.id}`),
+          fetch(
+            `https://newspaper-fullstack-website-server.vercel.app/articles/${params.id}`
+          ),
       },
       {
         path: "/payment",

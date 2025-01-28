@@ -14,7 +14,9 @@ export default function MyArticles() {
   // console.log(articles);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/myArticles?email=${user?.email}`)
+    fetch(
+      `https://newspaper-fullstack-website-server.vercel.app/myArticles?email=${user?.email}`
+    )
       .then((res) => res.json())
       .then((data) => setArticles(data))
       .catch((error) => console.error("Error fetching articles:", error));
@@ -33,7 +35,9 @@ export default function MyArticles() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(`http://localhost:5000/articles/${id}`);
+          await axios.delete(
+            `https://newspaper-fullstack-website-server.vercel.app/articles/${id}`
+          );
           setArticles((prev) => prev.filter((article) => article._id !== id));
 
           Swal.fire({

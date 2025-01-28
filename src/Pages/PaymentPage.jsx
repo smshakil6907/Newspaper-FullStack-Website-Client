@@ -16,13 +16,16 @@ const PaymentPage = () => {
   }
 
   const handleSubscription = (email) => {
-    fetch("http://localhost:5000/users/subscribe", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    })
+    fetch(
+      "https://newspaper-fullstack-website-server.vercel.app/users/subscribe",
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {

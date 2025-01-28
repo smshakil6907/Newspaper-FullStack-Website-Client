@@ -33,9 +33,7 @@ export default function AuthProvider({ children }) {
 
   const userLogin = (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password).finally(() =>
-      setLoading(false)
-    );
+    return signInWithEmailAndPassword(auth, email, password);
   };
 
   const signInWithGoogle = () => {

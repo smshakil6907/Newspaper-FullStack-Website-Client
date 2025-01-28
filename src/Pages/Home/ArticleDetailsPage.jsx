@@ -10,7 +10,7 @@ const ArticleDetailsPage = () => {
   useEffect(() => {
     const incrementViewCount = async () => {
       const response = await axios.patch(
-        `http://localhost:5000/articles/view/${id}`
+        `https://newspaper-fullstack-website-server.vercel.app/articles/view/${id}`
       );
       setViewCount(response.data.viewCount);
     };

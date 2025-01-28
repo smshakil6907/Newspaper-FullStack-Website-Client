@@ -16,6 +16,7 @@ export default function Users() {
       return res.data;
     },
   });
+  // console.log(users);
 
   const numberOfPages = Math.ceil(users.length / articlePerPage);
   const pages = [...Array(numberOfPages).keys()];

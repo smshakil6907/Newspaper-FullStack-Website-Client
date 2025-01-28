@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import useAxiosPublic from "../../Hoks/useAxiosPublic";
 import { AuthContext } from "../../Provider/AuthProvider";
 
@@ -11,24 +12,26 @@ export default function Login() {
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    const form = e.target;
+  const handleLogin = (event) => {
+    event.preventDefault();
+    const form = event.target;
     const email = form.email.value;
     const password = form.password.value;
-
-    userLogin(email, password)
-      .then((result) => {
-        const user = result.user;
-        setUser(user);
-        const redirectPath = location?.state?.from || "/";
-        navigate(redirectPath, { replace: true });
-        toast.success("Login successful!");
-      })
-      .catch((err) => {
-        setError("Password or email is incorrect");
-        toast.error("Login failed: Password or email is incorrect");
+    console.log(email, password);
+    userLogin(email, password).then((result) => {
+      const user = result.user;
+      // console.log(user);
+      navigate("/");
+      Swal.fire({
+        title: "User Login Successful.",
+        showClass: {
+          popup: "animate__animated animate__fadeInDown",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOutUp",
+        },
       });
+    });
   };
 
   const handleGoogleSignIn = () => {
