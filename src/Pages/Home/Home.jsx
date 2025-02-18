@@ -4,6 +4,7 @@ import AllPublisher from "./AllPublisher";
 import Banner from "./Banner";
 import BreakingNewsTicker from "./BreakingNewsTicker";
 import EditorsPicks from "./EditorsPicks";
+import NewsUpdates from "./NewsUpdates";
 import Plans from "./Plans";
 import StatisticPage from "./StatisticPage";
 import TrendingArticle from "./TrendingArticle";
@@ -48,6 +49,7 @@ export default function Home() {
       <StatisticPage></StatisticPage>
       <Plans></Plans>
       <EditorsPicks></EditorsPicks>
+      <NewsUpdates></NewsUpdates>
 
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
