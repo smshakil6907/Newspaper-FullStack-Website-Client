@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../Hoks/useAxiosPublic";
 
 export default function TrendingArticles() {
   const [trending, setTrending] = useState([]);
   const axiosPublic = useAxiosPublic();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -48,7 +50,12 @@ export default function TrendingArticles() {
               Views: {article.views || 0}
             </p>
             <p className="text-gray-700 mb-4">{article.description}</p>
-            <button className="btn btn-primary">See More</button>
+            <button
+              onClick={() => navigate(`/articleDetails/${article._id}`)}
+              className="px-4 py-2 text-white font-bold rounded-md w-full bg-blue-500 hover:bg-blue-600"
+            >
+              See More
+            </button>
           </div>
         ))}
       </div>
