@@ -10,6 +10,7 @@ const PaymentPage = () => {
   const axiosSecure = useAxiosSecure();
   const { subscriptionPeriod, price } = location.state || {};
   const { user } = useContext(AuthContext);
+  // console.log(user.email);
 
   if (!subscriptionPeriod || !price) {
     return <p>No subscription details found!</p>;

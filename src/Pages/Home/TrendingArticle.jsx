@@ -48,6 +48,7 @@ export default function TrendingArticles() {
               Views: {article.views || 0}
             </p>
             <p className="text-gray-700 mb-4">{article.description}</p>
+            <button className="btn btn-primary">See More</button>
           </div>
         ))}
       </div>
