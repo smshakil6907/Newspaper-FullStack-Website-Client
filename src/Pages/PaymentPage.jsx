@@ -60,13 +60,13 @@ const PaymentPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6 mb-7">
-      <div className="bg-white p-6 shadow-lg rounded-lg w-full max-w-md text-center">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">Payment</h1>
-        <p className="text-gray-700 mb-2">
+    <div className="flex flex-col items-center justify-center p-6 mb-7">
+      <div className=" p-6 shadow-lg rounded-lg w-full max-w-md text-center">
+        <h1 className="text-3xl font-bold  mb-4">Payment</h1>
+        <p className="mb-2">
           <strong>Subscription Period:</strong> {subscriptionPeriod}
         </p>
-        <p className="text-gray-700 mb-4">
+        <p className=" mb-4">
           <strong>Price:</strong> ${price}
         </p>
         <button

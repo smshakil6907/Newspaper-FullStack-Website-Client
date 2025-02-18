@@ -172,15 +172,13 @@ const AllArticle = () => {
 
   return (
     <div>
-      <div className="min-h-screen bg-gray-100 p-6 overflow-x-auto">
+      <div className="min-h-screen p-6 overflow-x-auto">
         <div className="max-w-7xl mx-auto shadow-lg rounded-md p-4">
-          <h1 className="text-2xl font-bold text-gray-800 mb-6">
-            All Articles
-          </h1>
+          <h1 className="text-2xl font-bold mb-6">All Articles</h1>
 
           <table className="w-full table-auto border-collapse border border-gray-300">
             <thead>
-              <tr className="bg-gray-200">
+              <tr className="">
                 <th className="border border-gray-300 px-4 py-2">Title</th>
                 <th className="border border-gray-300 px-4 py-2">Author</th>
                 <th className="border border-gray-300 px-4 py-2">Email</th>
@@ -194,7 +192,7 @@ const AllArticle = () => {
             </thead>
             <tbody>
               {paginatedUsers.map((article) => (
-                <tr key={article._id} className="hover:bg-gray-100">
+                <tr key={article._id} className="">
                   <td className="border border-gray-300 px-4 py-2">
                     {article.title}
                   </td>

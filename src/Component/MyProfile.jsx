@@ -6,8 +6,8 @@ export default function MyProfile() {
   const { user } = useContext(AuthContext);
   return (
     <div className="p-6 md:p-12 lg:p-16">
-      <div className="max-w-3xl mx-auto bg-gray-200 p-6">
-        <h1 className="text-2xl font-bold text-center mb-4 text-gray-800">
+      <div className="max-w-3xl mx-auto p-6 border rounded-lg">
+        <h1 className="text-2xl font-bold text-center mb-4">
           Welcome, {user?.displayName}
         </h1>
 
@@ -18,11 +18,9 @@ export default function MyProfile() {
           />
           <div className="w-full">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-xl font-semibold text-gray-700">
-                Profile Information
-              </h2>
+              <h2 className="text-xl font-semibold">Profile Information</h2>
             </div>
-            <div className="text-gray-600">
+            <div className="">
               <p>
                 <strong>Name:</strong> {user?.displayName}
               </p>

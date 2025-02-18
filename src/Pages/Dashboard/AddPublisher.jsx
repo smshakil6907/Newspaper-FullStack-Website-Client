@@ -53,15 +53,12 @@ const AddPublisher = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center p-6">
-      <div className="w-full max-w-md bg-white shadow-lg rounded-md p-6">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">Add Publisher</h2>
+    <div className="min-h-screen flex items-center justify-center p-6">
+      <div className="w-full max-w-md shadow-lg rounded-md p-6">
+        <h2 className="text-2xl font-bold mb-6">Add Publisher</h2>
         <form onSubmit={handleFormSubmit}>
           <div className="mb-4">
-            <label
-              className="block text-gray-700 font-semibold mb-2"
-              htmlFor="publisherName"
-            >
+            <label className="block font-semibold mb-2" htmlFor="publisherName">
               Publisher Name
             </label>
             <input
@@ -75,10 +72,7 @@ const AddPublisher = () => {
             />
           </div>
           <div className="mb-4">
-            <label
-              className="block text-gray-700 font-semibold mb-2"
-              htmlFor="publisherLogo"
-            >
+            <label className="block font-semibold mb-2" htmlFor="publisherLogo">
               Publisher Logo
             </label>
             <input

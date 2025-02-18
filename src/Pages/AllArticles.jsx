@@ -41,9 +41,9 @@ export default function AllArticles() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-md p-4">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6">All Articles</h1>
+    <div className="min-h-screen p-6">
+      <div className="max-w-7xl mx-auto shadow-lg rounded-md p-4">
+        <h1 className="text-2xl font-bold mb-6">All Articles</h1>
 
         {/* Search and Filter */}
         <div className="flex flex-col md:flex-row justify-between mb-4 gap-4">
@@ -77,7 +77,7 @@ export default function AllArticles() {
               <div
                 key={article._id}
                 className={`border rounded-md shadow-md p-4 ${
-                  article.isPremium ? "bg-yellow-300" : "bg-white"
+                  article.isPremium ? "bg-gray-300" : ""
                 }`}
               >
                 <img

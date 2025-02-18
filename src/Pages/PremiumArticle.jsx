@@ -22,8 +22,8 @@ export default function PremiumArticle() {
   const articles = data.filter((article) => article.isPremium === "Yes");
 
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <div className="max-w-7xl mx-auto bg-white shadow-lg rounded-md p-4">
+    <div className="min-h-screen p-6">
+      <div className="max-w-7xl mx-auto shadow-lg rounded-md p-4">
         <h1 className="text-2xl font-bold text-gray-800 mb-6">
           Premium Articles
         </h1>
@@ -32,7 +32,7 @@ export default function PremiumArticle() {
           {articles.map((article) => (
             <div
               key={article._id}
-              className="bg-yellow-300 shadow-md p-4 rounded-lg overflow-hidden"
+              className=" shadow-md p-4 rounded-lg overflow-hidden"
             >
               <img
                 src={article.image}

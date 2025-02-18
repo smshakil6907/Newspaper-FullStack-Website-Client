@@ -25,16 +25,14 @@ export default function NewsUpdates() {
   ];
 
   return (
-    <section className="bg-gray-100 py-10 px-5 rounded-lg mb-4">
-      <h2 className="text-2xl font-bold text-gray-700 text-center">
-        Latest News & Updates
-      </h2>
-      <p className="text-gray-600 text-center mt-2">
+    <section className="py-10 px-5 rounded-lg mb-4">
+      <h2 className="text-2xl font-bold text-center">Latest News & Updates</h2>
+      <p className="text-center mt-2">
         Stay informed with our latest announcements.
       </p>
       <div className="mt-6 space-y-4">
         {newsArticles.map((article) => (
-          <div key={article.id} className="bg-white p-4 rounded-lg shadow-md">
+          <div key={article.id} className="border p-4 rounded-lg shadow-md">
             <h3 className="text-lg font-semibold">{article.title}</h3>
             <p className="text-gray-500 text-sm">{article.date}</p>
             <p className="text-gray-600 mt-2">{article.description}</p>

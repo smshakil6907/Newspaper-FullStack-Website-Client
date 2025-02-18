@@ -35,23 +35,25 @@ export default function AdminHome() {
     ...publications.map((pub, index) => [`${pub.name}`, pub.articles]),
   ];
   return (
-    <div className="min-h-screen bg-gray-100 p-6">
-      <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">
+    <div className="min-h-screen p-6">
+      <h1 className="text-2xl font-bold mb-6 text-center">
         <span>Hi, Welcome </span>
         {user?.displayName ? user.displayName : "Back"}
       </h1>
 
       {/* Pie Chart */}
-      <div className="mb-10">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">
-          Dynamic Pie Chart
-        </h2>
+      <div className="mb-10 p-6 rounded-md shadow-lg">
+        <h2 className="text-xl font-semibold mb-4">Dynamic Pie Chart</h2>
         <Chart
+          className=""
           chartType="PieChart"
           data={pieData}
           options={{
             title: "Publication Articles Distribution",
             pieHole: 0.4,
+            backgroundColor: "transparent",
+            titleTextStyle: { color: "#555" },
+            legendTextStyle: { color: "#555" },
           }}
           width={"100%"}
           height={"400px"}
@@ -59,8 +61,8 @@ export default function AdminHome() {
       </div>
 
       {/* Bar Chart */}
-      <div className="mb-10">
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">Bar Chart</h2>
+      <div className="mb-10 rounded-md shadow-lg">
+        <h2 className="text-xl font-semibold mb-4">Bar Chart</h2>
         <Chart
           chartType="BarChart"
           data={barData}
@@ -68,10 +70,15 @@ export default function AdminHome() {
             title: "Articles Count by Publication",
             hAxis: {
               title: "Articles",
+              titleTextStyle: { color: "#555" },
+              legendTextStyle: { color: "#555" },
             },
             vAxis: {
               title: "Publication",
+              titleTextStyle: { color: "#555" },
+              legendTextStyle: { color: "#555" },
             },
+            backgroundColor: "transparent",
           }}
           width={"100%"}
           height={"400px"}
@@ -80,7 +87,9 @@ export default function AdminHome() {
 
       {/* Line Chart */}
       <div>
-        <h2 className="text-xl font-semibold text-gray-700 mb-4">Line Chart</h2>
+        <h2 className="text-xl font-semibold mb-4 rounded-md shadow-lg">
+          Line Chart
+        </h2>
         <Chart
           chartType="LineChart"
           data={lineData}
@@ -92,6 +101,7 @@ export default function AdminHome() {
             vAxis: {
               title: "Articles",
             },
+            backgroundColor: "transparent",
           }}
           width={"100%"}
           height={"400px"}

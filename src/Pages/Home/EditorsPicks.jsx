@@ -21,8 +21,8 @@ export default function EditorsPicks() {
   ];
 
   return (
-    <div className="bg-gray-100 rounded-lg shadow-md p-4 mt-8 mb-8">
-      <h3 className="text-2xl font-bold mb-4 text-gray-800">Editor's Pick</h3>
+    <div className="rounded-lg shadow-md p-4 mt-8 mb-8">
+      <h3 className="text-2xl font-bold mb-4 text-center">Editor's Pick</h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {articles.map((article, index) => (
           <div
@@ -35,9 +35,7 @@ export default function EditorsPicks() {
               className="w-full h-32 object-cover rounded-t-md"
             />
             <div className="p-3">
-              <h4 className="text-lg font-semibold text-gray-800">
-                {article.title}
-              </h4>
+              <h4 className="text-lg font-semibold">{article.title}</h4>
               <p className="text-gray-600 text-sm">{article.description}</p>
             </div>
           </div>

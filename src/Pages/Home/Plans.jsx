@@ -18,14 +18,12 @@ export default function Plans() {
       <h2 className="text-3xl font-bold text-center ">
         ** Choose Your Plan **
       </h2>
-      <div className=" bg-gray-100 py-10 mt-5">
+      <div className=" py-10 mt-5">
         <div className="max-w-7xl mx-auto text-center">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Free Plan */}
-            <div className="bg-white shadow-lg rounded-lg p-6">
-              <h2 className="text-2xl font-bold text-gray-700 mb-4">
-                Free Plan
-              </h2>
+            <div className=" shadow-lg rounded-lg p-6 border">
+              <h2 className="text-2xl font-bold mb-4">Free Plan</h2>
               <ul className="text-left mb-6">
                 {features.map((item, index) => (
                   <li key={index} className="flex items-center mb-3">
@@ -47,10 +45,8 @@ export default function Plans() {
             </div>
 
             {/* Premium Plan */}
-            <div className="bg-white shadow-lg rounded-lg p-6">
-              <h2 className="text-2xl font-bold text-gray-700 mb-4">
-                Premium Plan
-              </h2>
+            <div className=" shadow-lg rounded-lg p-6 border">
+              <h2 className="text-2xl font-bold mb-4">Premium Plan</h2>
               <ul className="text-left mb-6">
                 {features.map((item, index) => (
                   <li key={index} className="flex items-center mb-3">

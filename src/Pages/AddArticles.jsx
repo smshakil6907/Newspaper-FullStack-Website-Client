@@ -118,8 +118,14 @@ export default function AddArticles() {
                   onChange={(selectedOptions) => {
                     setTags(selectedOptions);
                   }}
-                  className="basic-multi-select"
+                  className=""
                   classNamePrefix="select"
+                  styles={{
+                    control: (provided) => ({
+                      ...provided,
+                      backgroundColor: "transparent",
+                    }),
+                  }}
                 />
               )}
             />
