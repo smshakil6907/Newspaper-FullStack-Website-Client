@@ -60,7 +60,7 @@ export default function UpdateProfile() {
         </div>
         <button
           type="submit"
-          className="btn btn-primary bg-green-800 hover:bg-green-800 border-none text-white py-2 px-4 rounded"
+          className="btn bg-blue-500 hover:bg-blue-700 border-none text-white py-2 px-4 rounded"
         >
           Update Information
         </button>

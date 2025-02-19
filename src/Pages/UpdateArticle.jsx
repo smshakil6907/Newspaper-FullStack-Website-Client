@@ -126,6 +126,12 @@ export default function UpdateArticle() {
                   }}
                   className="basic-multi-select"
                   classNamePrefix="select"
+                  styles={{
+                    control: (provided) => ({
+                      ...provided,
+                      backgroundColor: "transparent",
+                    }),
+                  }}
                 />
               )}
             />

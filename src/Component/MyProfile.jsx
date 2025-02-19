@@ -31,7 +31,7 @@ export default function MyProfile() {
             <div className="mt-6 text-center">
               <NavLink
                 to="/updateProfile"
-                className="btn btn-primary bg-green-800 hover:bg-green-800 border-none text-white px-6 py-3"
+                className="btn bg-blue-500 hover:bg-blue-700 border-none text-white px-6 py-3"
               >
                 Update Profile
               </NavLink>
