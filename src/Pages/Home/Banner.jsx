@@ -10,7 +10,7 @@ import img3 from "../../assets/carouselimg/image 777.jpg";
 export default function Banner() {
   return (
     <Carousel>
-      <div className="relative flex items-center justify-center min-h-screen">
+      <div className="relative flex items-center justify-center lg:min-h-screen">
         <img src={img3} alt="Apple TV" className="w-full object-cover" />
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 text-white space-y-4">
           <h2 className="text-2xl font-bold text-center">
@@ -23,7 +23,7 @@ export default function Banner() {
           </p>
         </div>
       </div>
-      <div className="relative flex items-center justify-center min-h-screen">
+      <div className="relative flex items-center justify-center lg:min-h-screen">
         <img src={img4} alt="Apple TV" className="w-full object-cover" />
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 text-white space-y-4">
           <h2 className="text-2xl font-bold text-center">
@@ -36,7 +36,7 @@ export default function Banner() {
           </p>
         </div>
       </div>
-      <div className="relative flex items-center justify-center min-h-screen">
+      <div className="relative flex items-center justify-center lg:min-h-screen">
         <img src={img5} alt="Apple TV" className="w-full object-cover" />
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 text-white space-y-4">
           <h2 className="text-2xl font-bold text-center">
@@ -49,7 +49,7 @@ export default function Banner() {
           </p>
         </div>
       </div>
-      <div className="relative flex items-center justify-center min-h-screen">
+      <div className="relative flex items-center justify-center lg:min-h-screen">
         <img src={img6} alt="Apple TV" className="w-full object-cover" />
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50 text-white space-y-4">
           <h2 className="text-2xl font-bold text-center">

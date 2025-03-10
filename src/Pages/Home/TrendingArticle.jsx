@@ -27,7 +27,7 @@ export default function TrendingArticles() {
   }, [axiosPublic]);
 
   return (
-    <div className=" p-6 rounded-md shadow-lg mb-4   ">
+    <div className="p-4 rounded-md shadow-lg">
       <h2 className="text-2xl font-bold mb-4 text-center">Trending Articles</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {trending.map((article) => (
