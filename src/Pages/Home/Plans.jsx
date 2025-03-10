@@ -14,11 +14,11 @@ export default function Plans() {
   ];
 
   return (
-    <div className="mt-8 mb-7">
+    <div className="mt-4">
       <h2 className="text-3xl font-bold text-center ">
         ** Choose Your Plan **
       </h2>
-      <div className=" py-10 mt-5">
+      <div className=" py-10 p-4">
         <div className="max-w-7xl mx-auto text-center">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             {/* Free Plan */}

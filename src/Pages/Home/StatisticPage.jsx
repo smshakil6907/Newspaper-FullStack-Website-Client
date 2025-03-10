@@ -23,7 +23,7 @@ export default function StatisticPage() {
   const normalUsers = totalUsers - premiumUsers;
 
   return (
-    <div className="mt-10">
+    <div className="mt-5">
       <h2 className="text-3xl font-bold text-center mb-3">
         All Users Statics Count
       </h2>
